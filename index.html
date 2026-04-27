@@ -12,56 +12,63 @@
             <h1>🎨 Пиксельный редактор</h1>
         </header>
 
-        <div class="toolbar">
-            <div class="tool-group">
-                <label for="colorPicker">Цвет:</label>
-                <input type="color" id="colorPicker" value="#000000">
-            </div>
+        <div class="main-layout">
+            <div class="left-section">
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <label for="colorPicker">Цвет:</label>
+                        <input type="color" id="colorPicker" value="#000000">
+                    </div>
 
-            <div class="tool-group">
-                <label for="brushSize">Размер кисти:</label>
-                <input type="range" id="brushSize" min="1" max="32" value="1">
-                <span id="brushSizeValue">1px</span>
-            </div>
+                    <div class="tool-group">
+                        <label for="brushSize">Размер кисти:</label>
+                        <input type="range" id="brushSize" min="1" max="32" value="1">
+                        <span id="brushSizeValue">1px</span>
+                    </div>
 
-            <div class="tool-group">
-                <label for="gridSize">Размер сетки:</label>
-                <input type="number" id="gridSize" min="1" max="100" value="20">
-            </div>
-        </div>
-
-        <div class="editor-container">
-            <canvas id="canvas"></canvas>
-            <div class="tools-panel">
-                <div class="tool-section">
-                    <button id="eraserBtn" class="tool-btn" title="Ластик">🧹</button>
-                    <button id="fillBtn" class="tool-btn" title="Заливка">💧</button>
+                    <div class="tool-group">
+                        <label for="gridSize">Размер сетки:</label>
+                        <input type="number" id="gridSize" min="1" max="100" value="20">
+                    </div>
                 </div>
-                <div class="tool-section">
-                    <button id="undoBtn" class="tool-btn" title="Отменить">↶</button>
-                    <button id="redoBtn" class="tool-btn" title="Вернуть">↷</button>
+
+                <div class="editor-container">
+                    <canvas id="canvas"></canvas>
                 </div>
-                <div class="tool-section">
-                    <button id="clearBtn" class="tool-btn danger" title="Очистить">🗑️</button>
+
+                <div class="info">
+                    <p>Размер сетки: <span id="canvasInfo">20x20</span> пикселей</p>
                 </div>
             </div>
-        </div>
 
-        <div class="export-panel">
-            <div class="export-group">
-                <span class="export-label">SVG</span>
-                <button id="downloadSVG" class="export-btn" title="Скачать SVG">⬇️</button>
-                <button id="copySVG" class="export-btn" title="Копировать в буфер">📋</button>
-            </div>
-            <div class="export-group">
-                <span class="export-label">PNG</span>
-                <button id="downloadPNG" class="export-btn" title="Скачать PNG">⬇️</button>
-                <button id="copyPNG" class="export-btn" title="Копировать в буфер">📋</button>
-            </div>
-        </div>
+            <div class="right-panel">
+                <div class="tools-section">
+                    <h3>Инструменты</h3>
+                    <div class="tool-buttons">
+                        <button id="eraserBtn" class="tool-btn" title="Ластик">🧹</button>
+                        <button id="fillBtn" class="tool-btn" title="Заливка">💧</button>
+                        <button id="undoBtn" class="tool-btn" title="Отменить">↶</button>
+                        <button id="redoBtn" class="tool-btn" title="Вернуть">↷</button>
+                        <button id="clearBtn" class="tool-btn danger" title="Очистить">🗑️</button>
+                    </div>
+                </div>
 
-        <div class="info">
-            <p>Размер сетки: <span id="canvasInfo">20x20</span> пикселей</p>
+                <div class="tools-section">
+                    <h3>Экспорт</h3>
+                    <div class="export-buttons">
+                        <div class="export-group">
+                            <span class="export-label">SVG</span>
+                            <button id="downloadSVG" class="export-btn" title="Скачать SVG">⬇️</button>
+                            <button id="copySVG" class="export-btn" title="Копировать в буфер">📋</button>
+                        </div>
+                        <div class="export-group">
+                            <span class="export-label">PNG</span>
+                            <button id="downloadPNG" class="export-btn" title="Скачать PNG">⬇️</button>
+                            <button id="copyPNG" class="export-btn" title="Копировать в буфер">📋</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -12,12 +12,15 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     background: white;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 header {
@@ -25,11 +28,25 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 header h1 {
     font-size: 28px;
     font-weight: 600;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .toolbar {
@@ -40,6 +57,7 @@ header h1 {
     background: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .tool-group {
@@ -83,20 +101,84 @@ header h1 {
     min-width: 35px;
 }
 
-.tool-btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    background: #667eea;
-    color: white;
+.editor-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: white;
+    overflow: auto;
+}
+
+#canvas {
+    border: 2px solid #ddd;
+    background: white;
+    cursor: crosshair;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.info {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    color: #666;
     font-size: 14px;
-    font-weight: 500;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.right-panel {
+    width: 220px;
+    background: #f8f9fa;
+    border-left: 1px solid #e9ecef;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tools-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tools-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tool-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.tool-btn {
+    padding: 12px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #333;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 18px;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
 }
 
 .tool-btn:hover {
-    background: #5568d3;
+    background: #667eea;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
@@ -107,142 +189,51 @@ header h1 {
 
 .tool-btn.active {
     background: #764ba2;
+    color: white;
 }
 
 .tool-btn.danger {
-    background: #e74c3c;
+    border-color: #e74c3c;
 }
 
 .tool-btn.danger:hover {
-    background: #c0392b;
-}
-
-.tool-btn.success {
-    background: #27ae60;
-}
-
-.tool-btn.success:hover {
-    background: #229954;
-}
-
-.editor-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 30px;
-    background: white;
-    min-height: 500px;
-    gap: 20px;
-}
-
-#canvas {
-    border: 2px solid #ddd;
-    background: white;
-    cursor: crosshair;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.tools-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
-}
-
-.tool-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.tool-section:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.tools-panel .tool-btn {
-    padding: 12px;
-    font-size: 18px;
-    border: 2px solid #667eea;
-    background: white;
-    color: #333;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.tools-panel .tool-btn:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.tools-panel .tool-btn:active {
-    transform: translateY(0);
-}
-
-.tools-panel .tool-btn.active {
-    background: #764ba2;
-    color: white;
-}
-
-.tools-panel .tool-btn.danger {
-    border-color: #e74c3c;
-    color: #333;
-}
-
-.tools-panel .tool-btn.danger:hover {
     background: #e74c3c;
     color: white;
 }
 
-.export-panel {
+.export-buttons {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
-    background: white;
-    border-top: 1px solid #e9ecef;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .export-group {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
 .export-label {
     font-weight: 600;
     color: #333;
-    min-width: 40px;
-    font-size: 14px;
+    min-width: 35px;
+    font-size: 12px;
 }
 
 .export-btn {
-    padding: 10px 12px;
+    flex: 1;
+    padding: 8px;
     border: 2px solid #667eea;
     background: white;
     color: #667eea;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 40px;
-    height: 40px;
+    height: 36px;
 }
 
 .export-btn:hover {
@@ -256,13 +247,33 @@ header h1 {
     transform: translateY(0);
 }
 
-.info {
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #e9ecef;
-    color: #666;
-    font-size: 14px;
-    text-align: center;
+@media (max-width: 1024px) {
+    .container {
+        height: auto;
+    }
+
+    .main-layout {
+        flex-direction: column;
+        overflow: visible;
+    }
+
+    .right-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #e9ecef;
+        padding: 15px;
+        flex-direction: row;
+        gap: 30px;
+        overflow-y: visible;
+    }
+
+    .tools-section {
+        flex: 1;
+    }
+
+    .tool-buttons {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -275,13 +286,15 @@ header h1 {
         min-width: 200px;
     }
 
-    .editor-container {
-        padding: 15px;
-        min-height: 300px;
+    header h1 {
+        font-size: 20px;
+    }
+
+    .right-panel {
         flex-direction: column;
     }
 
-    header h1 {
-        font-size: 20px;
+    .tool-buttons {
+        grid-template-columns: repeat(5, 1fr);
     }
 }
