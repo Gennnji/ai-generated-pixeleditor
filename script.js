@@ -490,5 +490,15 @@ floatingEraserBtn.addEventListener('click', () => {
     eraserBtn.classList.toggle('active');
 });
 
+// Обработчик для плавающей кнопки заливки
+const floatingFillBtn = document.getElementById('floatingFillBtn');
+floatingFillBtn.addEventListener('click', () => {
+    isFill = !isFill;
+    isEraser = false;
+    eraserBtn.classList.remove('active');
+    floatingFillBtn.classList.toggle('active');
+    fillBtn.classList.toggle('active');
+});
+
 // Инициализация
 initCanvas();
