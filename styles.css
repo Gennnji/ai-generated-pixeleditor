@@ -6,7 +6,26 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            #3e2723 0px,
+            #4e342e 2px,
+            #5d4037 4px,
+            #6d4c41 6px,
+            #5d4037 8px,
+            #4e342e 10px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            #2c1810 0px,
+            #3e2723 1px,
+            #4e342e 3px,
+            #5d4037 5px,
+            #6d4c41 7px
+        );
+    background-size: 12px 12px;
+    background-position: 0 0, 0 0;
     min-height: 100vh;
     padding: 0;
     overflow: hidden;
