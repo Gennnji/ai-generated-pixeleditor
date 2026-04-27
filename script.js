@@ -158,11 +158,14 @@ function drawBrush(col, row, pixelSize) {
 
 // Заливка цветом (flood fill)
 function floodFill(col, row, pixelSize, newColor) {
-    // Получить цвет начального пикселя
+    // Получить цвет начального пикселя с учётом альфа-канала
     const pixelData = ctx.getImageData(col * pixelSize, row * pixelSize, 1, 1);
-    const originalColor = rgbToHex(pixelData.data[0], pixelData.data[1], pixelData.data[2]);
+    const originalColor = pixelDataToString(pixelData.data[0], pixelData.data[1], pixelData.data[2], pixelData.data[3]);
     
-    if (originalColor === newColor) return;
+    const newColorRgba = hexToRgba(newColor);
+    const newColorStr = pixelDataToString(newColorRgba[0], newColorRgba[1], newColorRgba[2], newColorRgba[3]);
+    
+    if (originalColor === newColorStr) return;
     
     const stack = [[col, row]];
     const visited = new Set();
@@ -174,7 +177,7 @@ function floodFill(col, row, pixelSize, newColor) {
         if (visited.has(key) || x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) continue;
         
         const pixData = ctx.getImageData(x * pixelSize, y * pixelSize, 1, 1);
-        const pColor = rgbToHex(pixData.data[0], pixData.data[1], pixData.data[2]);
+        const pColor = pixelDataToString(pixData.data[0], pixData.data[1], pixData.data[2], pixData.data[3]);
         
         if (pColor !== originalColor) continue;
         
@@ -186,6 +189,22 @@ function floodFill(col, row, pixelSize, newColor) {
         stack.push([x, y + 1]);
         stack.push([x, y - 1]);
     }
+}
+
+// Преобразование пиксельных данных в строку для сравнения (включая альфа)
+function pixelDataToString(r, g, b, a) {
+    return `${r},${g},${b},${a}`;
+}
+
+// Преобразование HEX в RGBA
+function hexToRgba(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+        255
+    ] : [0, 0, 0, 255];
 }
 
 // Преобразование RGB в HEX
