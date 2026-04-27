@@ -19,5 +19,5 @@ jobs:
           git config --local user.name "Gennadiy Vatitov"
           git fetch origin
           git checkout gh-pages
-          git merge origin/main --no-edit
+          git merge origin/main --allow-unrelated-histories --no-edit
           git push origin gh-pages
