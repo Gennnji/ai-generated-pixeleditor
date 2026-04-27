@@ -128,10 +128,11 @@ header h1 {
 .editor-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 30px;
     background: white;
     min-height: 500px;
+    gap: 20px;
 }
 
 #canvas {
@@ -139,6 +140,120 @@ header h1 {
     background: white;
     cursor: crosshair;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tools-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.tool-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.tool-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tools-panel .tool-btn {
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tools-panel .tool-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.tools-panel .tool-btn:active {
+    transform: translateY(0);
+}
+
+.tools-panel .tool-btn.active {
+    background: #764ba2;
+    color: white;
+}
+
+.tools-panel .tool-btn.danger {
+    border-color: #e74c3c;
+    color: #333;
+}
+
+.tools-panel .tool-btn.danger:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+.export-panel {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e9ecef;
+}
+
+.export-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.export-label {
+    font-weight: 600;
+    color: #333;
+    min-width: 40px;
+    font-size: 14px;
+}
+
+.export-btn {
+    padding: 10px 12px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+
+.export-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.export-btn:active {
+    transform: translateY(0);
 }
 
 .info {
@@ -163,6 +278,7 @@ header h1 {
     .editor-container {
         padding: 15px;
         min-height: 300px;
+        flex-direction: column;
     }
 
     header h1 {

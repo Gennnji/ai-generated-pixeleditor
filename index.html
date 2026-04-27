@@ -25,17 +25,6 @@
             </div>
 
             <div class="tool-group">
-                <button id="eraserBtn" class="tool-btn">Ластик</button>
-                <button id="fillBtn" class="tool-btn">Заливка</button>
-                <button id="clearBtn" class="tool-btn danger">Очистить</button>
-            </div>
-
-            <div class="tool-group">
-                <button id="undoBtn" class="tool-btn">↶ Отменить</button>
-                <button id="redoBtn" class="tool-btn">↷ Вернуть</button>
-            </div>
-
-            <div class="tool-group">
                 <label for="gridSize">Размер сетки:</label>
                 <input type="number" id="gridSize" min="1" max="100" value="20">
             </div>
@@ -43,6 +32,19 @@
 
         <div class="editor-container">
             <canvas id="canvas"></canvas>
+            <div class="tools-panel">
+                <div class="tool-section">
+                    <button id="eraserBtn" class="tool-btn" title="Ластик">🧹</button>
+                    <button id="fillBtn" class="tool-btn" title="Заливка">💧</button>
+                </div>
+                <div class="tool-section">
+                    <button id="undoBtn" class="tool-btn" title="Отменить">↶</button>
+                    <button id="redoBtn" class="tool-btn" title="Вернуть">↷</button>
+                </div>
+                <div class="tool-section">
+                    <button id="clearBtn" class="tool-btn danger" title="Очистить">🗑️</button>
+                </div>
+            </div>
         </div>
 
         <div class="export-panel">
