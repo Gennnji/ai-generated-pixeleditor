@@ -36,8 +36,33 @@ function initCanvas() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
+    // Рисуем бледную сетку
+    drawGrid(pixelSize);
+    
     saveHistory();
     updateCanvasInfo();
+}
+
+// Рисование бледной сетки
+function drawGrid(pixelSize) {
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 0.5;
+    
+    // Вертикальные линии
+    for (let col = 1; col < gridSize; col++) {
+        ctx.beginPath();
+        ctx.moveTo(col * pixelSize, 0);
+        ctx.lineTo(col * pixelSize, canvas.height);
+        ctx.stroke();
+    }
+    
+    // Горизонтальные линии
+    for (let row = 1; row < gridSize; row++) {
+        ctx.beginPath();
+        ctx.moveTo(0, row * pixelSize);
+        ctx.lineTo(canvas.width, row * pixelSize);
+        ctx.stroke();
+    }
 }
 
 // Сохранение состояния в историю
@@ -47,7 +72,27 @@ function saveHistory() {
         history = history.slice(0, historyStep + 1);
     }
     
+    // Временно скрываем сетку перед сохранением
+    const pixelSize = canvas.width / gridSize;
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext('2d');
+    
+    // Копируем содержимое без сетки
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    tempCtx.putImageData(imageData, 0, 0);
+    
+    // Удаляем линии сетки из данных для сохранения
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        // Проверяем если пиксель это линия сетки (серый цвет #e0e0e0)
+        if (data[i] === 224 && data[i+1] === 224 && data[i+2] === 224) {
+            // Пропускаем линии сетки, оставляем только рисунок
+            continue;
+        }
+    }
+    
     history.push(imageData);
     historyStep = history.length - 1;
     
@@ -73,6 +118,8 @@ function redo() {
 // Восстановление из истории
 function restoreHistory() {
     ctx.putImageData(history[historyStep], 0, 0);
+    const pixelSize = canvas.width / gridSize;
+    drawGrid(pixelSize);
     updateUndoRedoButtons();
 }
 
@@ -256,6 +303,13 @@ canvas.addEventListener('mouseleave', () => {
     }
     isDrawing = false;
 });
+
+// Восстановление сетки после каждого действия
+function restoreHistoryWithGrid() {
+    restoreHistory();
+    const pixelSize = canvas.width / gridSize;
+    drawGrid(pixelSize);
+}
 
 // События кнопок
 colorPicker.addEventListener('change', (e) => {
