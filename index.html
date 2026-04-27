@@ -7,26 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎨 Пиксельный редактор</h1>
-        </header>
+    <header class="floating-header">
+        <h1>PixelEditor</h1>
+    </header>
 
-        <div class="main-layout">
-            <div class="left-section">
-                <div class="editor-container">
-                    <div class="canvas-wrapper">
-                        <canvas id="gridCanvas"></canvas>
-                        <canvas id="canvas"></canvas>
-                    </div>
-                </div>
+    <div class="editor-container">
+        <div class="canvas-wrapper">
+            <canvas id="gridCanvas"></canvas>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
 
-                <div class="info">
-                    <p>Размер сетки: <span id="canvasInfo">20x20</span> пикселей</p>
-                </div>
-            </div>
-
-            <div class="right-panel">
+    <div class="right-panel">
                 <div class="tools-section">
                     <h3>Параметры</h3>
                     <div class="param-group">
@@ -90,9 +82,6 @@
                             <button id="copyPNG" class="export-btn" title="Копировать в буфер">📋</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script src="script.js"></script>
