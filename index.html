@@ -16,17 +16,6 @@
             <div class="left-section">
                 <div class="toolbar">
                     <div class="tool-group">
-                        <label for="colorPicker">Цвет:</label>
-                        <input type="color" id="colorPicker" value="#000000">
-                    </div>
-
-                    <div class="tool-group">
-                        <label for="brushSize">Размер кисти:</label>
-                        <input type="range" id="brushSize" min="1" max="32" value="1">
-                        <span id="brushSizeValue">1px</span>
-                    </div>
-
-                    <div class="tool-group">
                         <label for="gridSize">Размер сетки:</label>
                         <input type="number" id="gridSize" min="1" max="100" value="20">
                     </div>
@@ -45,6 +34,19 @@
             </div>
 
             <div class="right-panel">
+                <div class="tools-section">
+                    <h3>Параметры</h3>
+                    <div class="param-group">
+                        <label for="colorPicker">Цвет:</label>
+                        <input type="color" id="colorPicker" value="#000000">
+                    </div>
+                    <div class="param-group">
+                        <label for="brushSize">Кисть:</label>
+                        <input type="range" id="brushSize" min="1" max="32" value="1">
+                        <span id="brushSizeValue">1px</span>
+                    </div>
+                </div>
+
                 <div class="tools-section">
                     <h3>Инструменты</h3>
                     <div class="tool-buttons">
