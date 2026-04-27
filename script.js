@@ -11,6 +11,8 @@ const undoBtn = document.getElementById('undoBtn');
 const redoBtn = document.getElementById('redoBtn');
 const downloadSVG = document.getElementById('downloadSVG');
 const downloadPNG = document.getElementById('downloadPNG');
+const copySVG = document.getElementById('copySVG');
+const copyPNG = document.getElementById('copyPNG');
 const gridSizeInput = document.getElementById('gridSize');
 const canvasInfo = document.getElementById('canvasInfo');
 
@@ -350,6 +352,59 @@ redoBtn.addEventListener('click', redo);
 
 downloadSVG.addEventListener('click', exportToSVG);
 downloadPNG.addEventListener('click', exportToPNG);
+copySVG.addEventListener('click', copyToClipboardSVG);
+copyPNG.addEventListener('click', copyToClipboardPNG);
+
+// Копирование SVG в буфер обмена
+function copyToClipboardSVG() {
+    const pixelSize = canvas.width / gridSize;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    
+    let svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="${canvas.width}" height="${canvas.height}" xmlns="http://www.w3.org/2000/svg">
+  <rect width="${canvas.width}" height="${canvas.height}" fill="white"/>
+`;
+    
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            const pixelIndex = (row * gridSize + col) * 4;
+            const r = data[pixelIndex];
+            const g = data[pixelIndex + 1];
+            const b = data[pixelIndex + 2];
+            const a = data[pixelIndex + 3];
+            
+            if (r === 255 && g === 255 && b === 255 && a === 255) continue;
+            
+            const color = rgbToHex(r, g, b);
+            const x = col * pixelSize;
+            const y = row * pixelSize;
+            
+            svgContent += `  <rect x="${x}" y="${y}" width="${pixelSize}" height="${pixelSize}" fill="${color}"/>\n`;
+        }
+    }
+    
+    svgContent += `</svg>`;
+    
+    navigator.clipboard.writeText(svgContent).then(() => {
+        alert('SVG скопирован в буфер обмена!');
+    }).catch(() => {
+        alert('Не удалось скопировать в буфер обмена');
+    });
+}
+
+// Копирование PNG в буфер обмена
+function copyToClipboardPNG() {
+    canvas.toBlob((blob) => {
+        navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+        ]).then(() => {
+            alert('PNG скопирован в буфер обмена!');
+        }).catch(() => {
+            alert('Не удалось скопировать в буфер обмена');
+        });
+    });
+}
 
 gridSizeInput.addEventListener('change', (e) => {
     gridSize = parseInt(e.target.value);

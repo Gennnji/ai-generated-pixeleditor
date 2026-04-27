@@ -36,11 +36,6 @@
             </div>
 
             <div class="tool-group">
-                <button id="downloadSVG" class="tool-btn success">Скачать SVG</button>
-                <button id="downloadPNG" class="tool-btn success">Скачать PNG</button>
-            </div>
-
-            <div class="tool-group">
                 <label for="gridSize">Размер сетки:</label>
                 <input type="number" id="gridSize" min="1" max="100" value="20">
             </div>
@@ -48,6 +43,19 @@
 
         <div class="editor-container">
             <canvas id="canvas"></canvas>
+        </div>
+
+        <div class="export-panel">
+            <div class="export-group">
+                <span class="export-label">SVG</span>
+                <button id="downloadSVG" class="export-btn" title="Скачать SVG">⬇️</button>
+                <button id="copySVG" class="export-btn" title="Копировать в буфер">📋</button>
+            </div>
+            <div class="export-group">
+                <span class="export-label">PNG</span>
+                <button id="downloadPNG" class="export-btn" title="Скачать PNG">⬇️</button>
+                <button id="copyPNG" class="export-btn" title="Копировать в буфер">📋</button>
+            </div>
         </div>
 
         <div class="info">
