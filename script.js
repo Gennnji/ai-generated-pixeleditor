@@ -38,17 +38,32 @@ function initCanvas() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    updateCanvasBackground();
+    drawGridOnCanvas();
     saveHistory();
     updateCanvasInfo();
 }
 
-// Обновление background сетки
-function updateCanvasBackground() {
-    const pixelSize = 20;
-    canvas.style.backgroundImage = 'linear-gradient(90deg, #e0e0e0 1px, transparent 1px), linear-gradient(#e0e0e0 1px, transparent 1px)';
-    canvas.style.backgroundSize = pixelSize + 'px ' + pixelSize + 'px';
-    canvas.style.backgroundColor = '#ffffff';
+// Рисование сетки на canvas
+function drawGridOnCanvas() {
+    const pixelSize = canvas.width / gridSize;
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 0.5;
+    
+    // Вертикальные линии
+    for (let col = 1; col < gridSize; col++) {
+        ctx.beginPath();
+        ctx.moveTo(col * pixelSize, 0);
+        ctx.lineTo(col * pixelSize, canvas.height);
+        ctx.stroke();
+    }
+    
+    // Горизонтальные линии
+    for (let row = 1; row < gridSize; row++) {
+        ctx.beginPath();
+        ctx.moveTo(0, row * pixelSize);
+        ctx.lineTo(canvas.width, row * pixelSize);
+        ctx.stroke();
+    }
 }
 
 // Сохранение состояния в историю
@@ -83,6 +98,7 @@ function redo() {
 // Восстановление из истории
 function restoreHistory() {
     ctx.putImageData(history[historyStep], 0, 0);
+    drawGridOnCanvas();
     updateUndoRedoButtons();
 }
 
@@ -258,6 +274,7 @@ canvas.addEventListener('mouseup', () => {
         saveHistory();
     }
     isDrawing = false;
+    drawGridOnCanvas();
 });
 
 canvas.addEventListener('mouseleave', () => {
@@ -265,6 +282,7 @@ canvas.addEventListener('mouseleave', () => {
         saveHistory();
     }
     isDrawing = false;
+    drawGridOnCanvas();
 });
 
 // События кнопок
@@ -297,6 +315,7 @@ clearBtn.addEventListener('click', () => {
     if (confirm('Вы уверены? Это очистит весь холст.')) {
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawGridOnCanvas();
         saveHistory();
     }
 });
