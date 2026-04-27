@@ -406,69 +406,78 @@ gridHeightInput.addEventListener('change', (e) => {
     initCanvas();
 });
 
-// Обработчики событий для кнопок управления размером сетки
-document.getElementById('gridBtn-all').addEventListener('click', () => {
-    gridWidth++;
-    gridHeight++;
+// Функция для расширения холста с сохранением рисунка
+function expandGridWithOffset(offsetLeft, offsetTop, offsetRight, offsetBottom) {
+    const pixelSize = 20;
+    
+    // Сохраняем текущий рисунок
+    const oldImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Новые размеры
+    const newWidth = gridWidth + offsetLeft + offsetRight;
+    const newHeight = gridHeight + offsetTop + offsetBottom;
+    
+    // Обновляем размеры сетки
+    gridWidth = newWidth;
+    gridHeight = newHeight;
     gridWidthInput.value = gridWidth;
     gridHeightInput.value = gridHeight;
-    initCanvas();
+    
+    // Пересчитываем размеры холста
+    canvas.width = gridWidth * pixelSize;
+    canvas.height = gridHeight * pixelSize;
+    gridCanvas.width = gridWidth * pixelSize;
+    gridCanvas.height = gridHeight * pixelSize;
+    
+    // Очищаем холсты
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Копируем старый рисунок в новое место
+    ctx.putImageData(oldImageData, offsetLeft * pixelSize, offsetTop * pixelSize);
+    
+    // Перерисовываем сетку
+    drawGridOnGridCanvas();
+    
+    // Сохраняем в историю
+    saveHistory();
+    updateCanvasInfo();
+}
+
+// Обработчики событий для кнопок управления размером сетки
+document.getElementById('gridBtn-all').addEventListener('click', () => {
+    expandGridWithOffset(1, 1, 1, 1);
 });
 
 document.getElementById('gridBtn-up').addEventListener('click', () => {
-    gridHeight++;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(0, 1, 0, 0);
 });
 
 document.getElementById('gridBtn-down').addEventListener('click', () => {
-    if (gridHeight > 1) gridHeight--;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(0, 0, 0, 1);
 });
 
 document.getElementById('gridBtn-left').addEventListener('click', () => {
-    if (gridWidth > 1) gridWidth--;
-    gridWidthInput.value = gridWidth;
-    initCanvas();
+    expandGridWithOffset(1, 0, 0, 0);
 });
 
 document.getElementById('gridBtn-right').addEventListener('click', () => {
-    gridWidth++;
-    gridWidthInput.value = gridWidth;
-    initCanvas();
+    expandGridWithOffset(0, 0, 1, 0);
 });
 
 document.getElementById('gridBtn-up-left').addEventListener('click', () => {
-    if (gridWidth > 1) gridWidth--;
-    gridHeight++;
-    gridWidthInput.value = gridWidth;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(1, 1, 0, 0);
 });
 
 document.getElementById('gridBtn-up-right').addEventListener('click', () => {
-    gridWidth++;
-    gridHeight++;
-    gridWidthInput.value = gridWidth;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(0, 1, 1, 0);
 });
 
 document.getElementById('gridBtn-down-left').addEventListener('click', () => {
-    if (gridWidth > 1) gridWidth--;
-    if (gridHeight > 1) gridHeight--;
-    gridWidthInput.value = gridWidth;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(1, 0, 0, 1);
 });
 
 document.getElementById('gridBtn-down-right').addEventListener('click', () => {
-    gridWidth++;
-    if (gridHeight > 1) gridHeight--;
-    gridWidthInput.value = gridWidth;
-    gridHeightInput.value = gridHeight;
-    initCanvas();
+    expandGridWithOffset(0, 0, 1, 1);
 });
 
 // Инициализация
