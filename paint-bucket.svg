@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160">
+  <defs>
+    <linearGradient id="bucketGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF8C42;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="paintGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#357ABD;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shadowLeft" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D94E1F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+    </linearGradient>
+    <filter id="bucketShadow">
+      <feDropShadow dx="4" dy="6" stdDeviation="5" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  
+  <!-- Ручка ведра -->
+  <path d="M 45 30 Q 30 30 25 50 Q 22 60 25 70" stroke="#D94E1F" stroke-width="5" fill="none" stroke-linecap="round" filter="url(#bucketShadow)"/>
+  
+  <!-- Корпус ведра (трапеция) -->
+  <polygon points="35,75 85,75 95,130 25,130" fill="url(#bucketGradient)" filter="url(#bucketShadow)"/>
+  
+  <!-- Тень на левой стороне ведра -->
+  <polygon points="35,75 25,130 30,130 40,75" fill="url(#shadowLeft)" opacity="0.4"/>
+  
+  <!-- Тень справа -->
+  <polygon points="85,75 95,130 90,130 80,75" fill="#000000" opacity="0.2"/>
+  
+  <!-- Краска внутри ведра (верхний уровень) -->
+  <ellipse cx="60" cy="75" rx="25" ry="8" fill="url(#paintGradient)"/>
+  
+  <!-- Краска внутри (основной объём) -->
+  <path d="M 35 75 L 40 120 L 80 120 L 85 75 Z" fill="#4A90E2" opacity="0.8"/>
+  
+  <!-- Отблеск на краске -->
+  <ellipse cx="50" cy="95" rx="12" ry="8" fill="#FFFFFF" opacity="0.3"/>
+  <ellipse cx="70" cy="105" rx="8" ry="6" fill="#FFFFFF" opacity="0.2"/>
+  
+  <!-- Блик на ручке -->
+  <ellipse cx="28" cy="45" rx="3" ry="6" fill="#FFFFFF" opacity="0.4"/>
+  
+  <!-- Капля краски на краю ведра -->
+  <path d="M 88 75 Q 90 85 88 95 Q 87 100 85 100" stroke="#4A90E2" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Капелька на краю -->
+  <circle cx="87" cy="100" r="2.5" fill="#4A90E2" opacity="0.6"/>
+</svg>

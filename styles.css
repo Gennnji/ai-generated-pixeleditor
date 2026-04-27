@@ -389,6 +389,39 @@ body {
     filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.5)) brightness(1.1);
 }
 
+.floating-fill-btn {
+    position: relative;
+    width: 100px;
+    height: 140px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    padding: 0;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.floating-fill-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+.floating-fill-btn:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+}
+
+.floating-fill-btn:active {
+    transform: scale(0.95);
+}
+
+.floating-fill-btn.active {
+    filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.5)) brightness(1.1);
+}
+
 @media (max-width: 768px) {
     .floating-header {
         top: 10px;
@@ -421,6 +454,11 @@ body {
     }
 
     .floating-eraser-btn {
+        width: 80px;
+        height: 112px;
+    }
+
+    .floating-fill-btn {
         width: 80px;
         height: 112px;
     }
