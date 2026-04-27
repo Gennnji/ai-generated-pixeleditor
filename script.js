@@ -46,11 +46,9 @@ function initCanvas() {
 // Обновление background сетки
 function updateCanvasBackground() {
     const pixelSize = 20;
-    canvas.style.backgroundImage = `
-        linear-gradient(90deg, #e0e0e0 1px, transparent 1px),
-        linear-gradient(#e0e0e0 1px, transparent 1px)
-    `;
-    canvas.style.backgroundSize = `${pixelSize}px ${pixelSize}px`;
+    canvas.style.backgroundImage = 'linear-gradient(90deg, #e0e0e0 1px, transparent 1px), linear-gradient(#e0e0e0 1px, transparent 1px)';
+    canvas.style.backgroundSize = pixelSize + 'px ' + pixelSize + 'px';
+    canvas.style.backgroundColor = '#ffffff';
 }
 
 // Сохранение состояния в историю
