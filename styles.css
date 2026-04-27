@@ -48,6 +48,8 @@ body {
     display: inline-block;
     width: fit-content;
     height: fit-content;
+    background: white;
+    border-radius: 2px;
 }
 
 #gridCanvas {
