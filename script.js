@@ -1,4 +1,6 @@
 // Элементы DOM
+const gridCanvas = document.getElementById('gridCanvas');
+const gridCtx = gridCanvas.getContext('2d');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const colorPicker = document.getElementById('colorPicker');
@@ -34,35 +36,40 @@ function initCanvas() {
     
     canvas.width = cols * pixelSize;
     canvas.height = rows * pixelSize;
+    gridCanvas.width = cols * pixelSize;
+    gridCanvas.height = rows * pixelSize;
     
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    drawGridOnCanvas();
+    drawGridOnGridCanvas();
     saveHistory();
     updateCanvasInfo();
 }
 
-// Рисование сетки на canvas
-function drawGridOnCanvas() {
-    const pixelSize = canvas.width / gridSize;
-    ctx.strokeStyle = '#e0e0e0';
-    ctx.lineWidth = 0.5;
+// Рисование сетки на отдельном gridCanvas
+function drawGridOnGridCanvas() {
+    // Очищаем gridCanvas
+    gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+    
+    const pixelSize = gridCanvas.width / gridSize;
+    gridCtx.strokeStyle = '#e0e0e0';
+    gridCtx.lineWidth = 0.5;
     
     // Вертикальные линии
     for (let col = 1; col < gridSize; col++) {
-        ctx.beginPath();
-        ctx.moveTo(col * pixelSize, 0);
-        ctx.lineTo(col * pixelSize, canvas.height);
-        ctx.stroke();
+        gridCtx.beginPath();
+        gridCtx.moveTo(col * pixelSize, 0);
+        gridCtx.lineTo(col * pixelSize, gridCanvas.height);
+        gridCtx.stroke();
     }
     
     // Горизонтальные линии
     for (let row = 1; row < gridSize; row++) {
-        ctx.beginPath();
-        ctx.moveTo(0, row * pixelSize);
-        ctx.lineTo(canvas.width, row * pixelSize);
-        ctx.stroke();
+        gridCtx.beginPath();
+        gridCtx.moveTo(0, row * pixelSize);
+        gridCtx.lineTo(gridCanvas.width, row * pixelSize);
+        gridCtx.stroke();
     }
 }
 
@@ -98,7 +105,6 @@ function redo() {
 // Восстановление из истории
 function restoreHistory() {
     ctx.putImageData(history[historyStep], 0, 0);
-    drawGridOnCanvas();
     updateUndoRedoButtons();
 }
 
@@ -274,7 +280,6 @@ canvas.addEventListener('mouseup', () => {
         saveHistory();
     }
     isDrawing = false;
-    drawGridOnCanvas();
 });
 
 canvas.addEventListener('mouseleave', () => {
@@ -282,7 +287,6 @@ canvas.addEventListener('mouseleave', () => {
         saveHistory();
     }
     isDrawing = false;
-    drawGridOnCanvas();
 });
 
 // События кнопок
@@ -315,7 +319,6 @@ clearBtn.addEventListener('click', () => {
     if (confirm('Вы уверены? Это очистит весь холст.')) {
         ctx.fillStyle = 'white';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        drawGridOnCanvas();
         saveHistory();
     }
 });
