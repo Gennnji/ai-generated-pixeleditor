@@ -125,10 +125,13 @@ header h1 {
     pointer-events: none;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    z-index: 1;
 }
 
 #canvas {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     border: 2px solid #ddd;
     cursor: crosshair;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -136,7 +139,8 @@ header h1 {
     max-height: 100%;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    background: white;
+    background: transparent;
+    z-index: 10;
 }
 
 .info {
