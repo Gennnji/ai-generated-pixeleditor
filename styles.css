@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    align-items: center;
+}
+
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tool-group label {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.tool-group input[type="color"] {
+    width: 50px;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tool-group input[type="range"] {
+    width: 120px;
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+}
+
+.tool-group input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#brushSizeValue {
+    color: #666;
+    font-size: 14px;
+    min-width: 35px;
+}
+
+.tool-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #667eea;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tool-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.tool-btn:active {
+    transform: translateY(0);
+}
+
+.tool-btn.active {
+    background: #764ba2;
+}
+
+.tool-btn.danger {
+    background: #e74c3c;
+}
+
+.tool-btn.danger:hover {
+    background: #c0392b;
+}
+
+.tool-btn.success {
+    background: #27ae60;
+}
+
+.tool-btn.success:hover {
+    background: #229954;
+}
+
+.editor-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: white;
+    min-height: 500px;
+}
+
+#canvas {
+    border: 2px solid #ddd;
+    background: white;
+    cursor: crosshair;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        gap: 10px;
+    }
+
+    .tool-group {
+        flex: 1 1 45%;
+        min-width: 200px;
+    }
+
+    .editor-container {
+        padding: 15px;
+        min-height: 300px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+}
