@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 200">
   <defs>
     <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#FFB6C1;stop-opacity:1" />
@@ -19,40 +19,38 @@
     </filter>
   </defs>
   
-  <!-- Основной куб ластика (розовый) -->
+  <!-- 3D Параллелепипед ластика в изометрической проекции -->
   
-  <!-- Верхняя грань (видна полностью) -->
-  <rect x="20" y="40" width="160" height="60" fill="url(#topGrad)" filter="url(#shadow)"/>
+  <!-- Верхняя грань (параллелограмм) -->
+  <polygon points="30,50 150,50 180,80 60,80" fill="url(#topGrad)" filter="url(#shadow)"/>
   
-  <!-- Левая грань (изометрия) -->
-  <polygon points="20,40 20,120 40,140 40,60" fill="url(#leftGrad)"/>
+  <!-- Левая грань (параллелограмм) - правильный параллелепипед -->
+  <polygon points="30,50 60,80 60,150 30,120" fill="url(#leftGrad)"/>
   
-  <!-- Правая грань (изометрия) -->
-  <polygon points="180,40 180,120 160,140 160,60" fill="url(#rightGrad)"/>
+  <!-- Правая грань (параллелограмм) - правильный параллелепипед -->
+  <polygon points="150,50 180,80 180,150 150,120" fill="url(#rightGrad)"/>
   
-  <!-- Передняя грань (видна частично через перспективу) -->
-  <polygon points="40,60 160,60 160,140 40,140" fill="#FFB0D0" opacity="0.9"/>
+  <!-- Передняя грань (прямоугольник) -->
+  <polygon points="30,120 150,120 150,150 30,150" fill="#FFB0D0" opacity="0.9"/>
   
-  <!-- Освещение и объем -->
-  <!-- Блик на верхней грани слева -->
-  <ellipse cx="50" cy="50" rx="30" ry="15" fill="#FFFACD" opacity="0.4"/>
-  
-  <!-- Блик на верхней грани справа -->
-  <ellipse cx="150" cy="50" rx="25" ry="12" fill="#FFFFFF" opacity="0.3"/>
+  <!-- Блики на верхней грани -->
+  <ellipse cx="70" cy="60" rx="25" ry="12" fill="#FFFACD" opacity="0.4"/>
+  <ellipse cx="140" cy="65" rx="20" ry="10" fill="#FFFFFF" opacity="0.3"/>
   
   <!-- Тень на левой грани -->
-  <polygon points="20,80 20,120 30,110 30,70" fill="#000000" opacity="0.15"/>
+  <polygon points="30,70 40,80 40,140 30,130" fill="#000000" opacity="0.15"/>
   
   <!-- Тень на правой грани -->
-  <polygon points="170,80 170,120 160,110 160,70" fill="#000000" opacity="0.1"/>
+  <polygon points="170,70 180,80 180,140 170,130" fill="#000000" opacity="0.1"/>
   
-  <!-- Маленькие дефекты/износ на поверхности -->
-  <circle cx="60" cy="80" r="2" fill="#FF69B4" opacity="0.6"/>
-  <circle cx="120" cy="100" r="1.5" fill="#FF1493" opacity="0.5"/>
-  <circle cx="140" cy="75" r="1" fill="#FF69B4" opacity="0.4"/>
-  <rect x="80" y="110" width="3" height="2" fill="#FF1493" opacity="0.3"/>
+  <!-- Дефекты на поверхности -->
+  <circle cx="80" cy="100" r="2" fill="#FF69B4" opacity="0.6"/>
+  <circle cx="120" cy="110" r="1.5" fill="#FF1493" opacity="0.5"/>
+  <circle cx="50" cy="135" r="1.5" fill="#FF69B4" opacity="0.4"/>
+  <circle cx="140" cy="140" r="1" fill="#FF1493" opacity="0.3"/>
   
-  <!-- Край (толщина) между гранями -->
-  <line x1="20" y1="40" x2="40" y2="60" stroke="#FF8FC7" stroke-width="1" opacity="0.5"/>
-  <line x1="180" y1="40" x2="160" y2="60" stroke="#FF69B4" stroke-width="1" opacity="0.5"/>
+  <!-- Края между гранями для четкости -->
+  <line x1="30" y1="50" x2="60" y2="80" stroke="#FF8FC7" stroke-width="1.5" opacity="0.6"/>
+  <line x1="150" y1="50" x2="180" y2="80" stroke="#FF69B4" stroke-width="1.5" opacity="0.6"/>
+  <line x1="60" y1="80" x2="180" y2="80" stroke="#FF8FC7" stroke-width="1" opacity="0.5"/>
 </svg>
