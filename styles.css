@@ -120,6 +120,67 @@ header h1 {
     text-align: center;
 }
 
+.grid-size-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.size-input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.size-input label {
+    font-weight: 500;
+    color: #333;
+    font-size: 12px;
+}
+
+.size-input input[type="number"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.grid-size-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding-top: 8px;
+}
+
+.grid-btn {
+    padding: 8px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+
+.grid-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.grid-btn:active {
+    transform: translateY(0);
+}
+
 .editor-container {
     flex: 1;
     display: flex;

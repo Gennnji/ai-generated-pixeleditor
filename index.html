@@ -14,13 +14,6 @@
 
         <div class="main-layout">
             <div class="left-section">
-                <div class="toolbar">
-                    <div class="tool-group">
-                        <label for="gridSize">Размер сетки:</label>
-                        <input type="number" id="gridSize" min="1" max="100" value="20">
-                    </div>
-                </div>
-
                 <div class="editor-container">
                     <div class="canvas-wrapper">
                         <canvas id="gridCanvas"></canvas>
@@ -44,6 +37,31 @@
                         <label for="brushSize">Кисть:</label>
                         <input type="range" id="brushSize" min="1" max="32" value="1">
                         <span id="brushSizeValue">1px</span>
+                    </div>
+                </div>
+
+                <div class="tools-section">
+                    <h3>Сетка</h3>
+                    <div class="grid-size-inputs">
+                        <div class="size-input">
+                            <label for="gridWidth">Ширина:</label>
+                            <input type="number" id="gridWidth" min="1" max="100" value="20">
+                        </div>
+                        <div class="size-input">
+                            <label for="gridHeight">Высота:</label>
+                            <input type="number" id="gridHeight" min="1" max="100" value="20">
+                        </div>
+                    </div>
+                    <div class="grid-size-buttons">
+                        <button id="gridBtn-up-left" class="grid-btn" title="Увеличить влево-вверх">↖️</button>
+                        <button id="gridBtn-up" class="grid-btn" title="Увеличить вверх">⬆️</button>
+                        <button id="gridBtn-up-right" class="grid-btn" title="Увеличить вправо-вверх">↗️</button>
+                        <button id="gridBtn-left" class="grid-btn" title="Увеличить влево">⬅️</button>
+                        <button id="gridBtn-all" class="grid-btn" title="Увеличить все">➕</button>
+                        <button id="gridBtn-right" class="grid-btn" title="Увеличить вправо">➡️</button>
+                        <button id="gridBtn-down-left" class="grid-btn" title="Увеличить влево-вниз">↙️</button>
+                        <button id="gridBtn-down" class="grid-btn" title="Увеличить вниз">⬇️</button>
+                        <button id="gridBtn-down-right" class="grid-btn" title="Увеличить вправо-вниз">↘️</button>
                     </div>
                 </div>
 

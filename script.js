@@ -15,7 +15,8 @@ const downloadSVG = document.getElementById('downloadSVG');
 const downloadPNG = document.getElementById('downloadPNG');
 const copySVG = document.getElementById('copySVG');
 const copyPNG = document.getElementById('copyPNG');
-const gridSizeInput = document.getElementById('gridSize');
+const gridWidthInput = document.getElementById('gridWidth');
+const gridHeightInput = document.getElementById('gridHeight');
 const canvasInfo = document.getElementById('canvasInfo');
 
 // Состояние
@@ -24,20 +25,19 @@ let isEraser = false;
 let isFill = false;
 let currentColor = '#000000';
 let currentBrushSize = 1;
-let gridSize = 20;
+let gridWidth = 20;
+let gridHeight = 20;
 let history = [];
 let historyStep = -1;
 
 // Инициализация канваса
 function initCanvas() {
     const pixelSize = 20; // размер пикселя в пикселях экрана
-    const cols = gridSize;
-    const rows = gridSize;
     
-    canvas.width = cols * pixelSize;
-    canvas.height = rows * pixelSize;
-    gridCanvas.width = cols * pixelSize;
-    gridCanvas.height = rows * pixelSize;
+    canvas.width = gridWidth * pixelSize;
+    canvas.height = gridHeight * pixelSize;
+    gridCanvas.width = gridWidth * pixelSize;
+    gridCanvas.height = gridHeight * pixelSize;
     
     // Очищаем canvas без белого фона (прозрачный)
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -52,12 +52,12 @@ function drawGridOnGridCanvas() {
     // Очищаем gridCanvas
     gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
     
-    const pixelSize = gridCanvas.width / gridSize;
+    const pixelSize = 20;
     gridCtx.strokeStyle = '#e0e0e0';
     gridCtx.lineWidth = 0.5;
     
     // Вертикальные линии
-    for (let col = 1; col < gridSize; col++) {
+    for (let col = 1; col < gridWidth; col++) {
         gridCtx.beginPath();
         gridCtx.moveTo(col * pixelSize, 0);
         gridCtx.lineTo(col * pixelSize, gridCanvas.height);
@@ -65,7 +65,7 @@ function drawGridOnGridCanvas() {
     }
     
     // Горизонтальные линии
-    for (let row = 1; row < gridSize; row++) {
+    for (let row = 1; row < gridHeight; row++) {
         gridCtx.beginPath();
         gridCtx.moveTo(0, row * pixelSize);
         gridCtx.lineTo(gridCanvas.width, row * pixelSize);
@@ -116,7 +116,7 @@ function updateUndoRedoButtons() {
 
 // Получение координат пикселя на канвасе
 function getPixelCoords(x, y) {
-    const pixelSize = canvas.width / gridSize;
+    const pixelSize = 20;
     const col = Math.floor(x / pixelSize);
     const row = Math.floor(y / pixelSize);
     return { col, row, pixelSize };
@@ -124,7 +124,7 @@ function getPixelCoords(x, y) {
 
 // Рисование пикселя
 function drawPixel(col, row, pixelSize, color) {
-    if (col >= 0 && col < gridSize && row >= 0 && row < gridSize) {
+    if (col >= 0 && col < gridWidth && row >= 0 && row < gridHeight) {
         ctx.fillStyle = color;
         ctx.fillRect(col * pixelSize, row * pixelSize, pixelSize, pixelSize);
     }
@@ -140,7 +140,7 @@ function drawBrush(col, row, pixelSize) {
             for (let dy = -brushRadius; dy <= brushRadius; dy++) {
                 const c = col + dx;
                 const r = row + dy;
-                if (c >= 0 && c < gridSize && r >= 0 && r < gridSize) {
+                if (c >= 0 && c < gridWidth && r >= 0 && r < gridHeight) {
                     ctx.clearRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
                 }
             }
@@ -171,7 +171,7 @@ function floodFill(col, row, pixelSize, newColor) {
         const [x, y] = stack.pop();
         const key = `${x},${y}`;
         
-        if (visited.has(key) || x < 0 || x >= gridSize || y < 0 || y >= gridSize) continue;
+        if (visited.has(key) || x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) continue;
         
         const pixData = ctx.getImageData(x * pixelSize, y * pixelSize, 1, 1);
         const pColor = rgbToHex(pixData.data[0], pixData.data[1], pixData.data[2]);
@@ -198,12 +198,12 @@ function rgbToHex(r, g, b) {
 
 // Обновление информации о канвасе
 function updateCanvasInfo() {
-    canvasInfo.textContent = `${gridSize}x${gridSize}`;
+    canvasInfo.textContent = `${gridWidth}x${gridHeight}`;
 }
 
 // Экспорт в SVG
 function exportToSVG() {
-    const pixelSize = canvas.width / gridSize;
+    const pixelSize = 20;
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     
@@ -213,9 +213,9 @@ function exportToSVG() {
 `;
     
     // Проходим по каждому пикселю
-    for (let row = 0; row < gridSize; row++) {
-        for (let col = 0; col < gridSize; col++) {
-            const pixelIndex = (row * gridSize + col) * 4;
+    for (let row = 0; row < gridHeight; row++) {
+        for (let col = 0; col < gridWidth; col++) {
+            const pixelIndex = (row * gridWidth + col) * 4;
             const r = data[pixelIndex];
             const g = data[pixelIndex + 1];
             const b = data[pixelIndex + 2];
@@ -346,7 +346,7 @@ copyPNG.addEventListener('click', copyToClipboardPNG);
 
 // Копирование SVG в буфер обмена
 function copyToClipboardSVG() {
-    const pixelSize = canvas.width / gridSize;
+    const pixelSize = 20;
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     
@@ -355,9 +355,9 @@ function copyToClipboardSVG() {
   <rect width="${canvas.width}" height="${canvas.height}" fill="white"/>
 `;
     
-    for (let row = 0; row < gridSize; row++) {
-        for (let col = 0; col < gridSize; col++) {
-            const pixelIndex = (row * gridSize + col) * 4;
+    for (let row = 0; row < gridHeight; row++) {
+        for (let col = 0; col < gridWidth; col++) {
+            const pixelIndex = (row * gridWidth + col) * 4;
             const r = data[pixelIndex];
             const g = data[pixelIndex + 1];
             const b = data[pixelIndex + 2];
@@ -395,8 +395,79 @@ function copyToClipboardPNG() {
     });
 }
 
-gridSizeInput.addEventListener('change', (e) => {
-    gridSize = parseInt(e.target.value);
+// Обработчики событий для изменения размера сетки
+gridWidthInput.addEventListener('change', (e) => {
+    gridWidth = parseInt(e.target.value);
+    initCanvas();
+});
+
+gridHeightInput.addEventListener('change', (e) => {
+    gridHeight = parseInt(e.target.value);
+    initCanvas();
+});
+
+// Обработчики событий для кнопок управления размером сетки
+document.getElementById('gridBtn-all').addEventListener('click', () => {
+    gridWidth++;
+    gridHeight++;
+    gridWidthInput.value = gridWidth;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-up').addEventListener('click', () => {
+    gridHeight++;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-down').addEventListener('click', () => {
+    if (gridHeight > 1) gridHeight--;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-left').addEventListener('click', () => {
+    if (gridWidth > 1) gridWidth--;
+    gridWidthInput.value = gridWidth;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-right').addEventListener('click', () => {
+    gridWidth++;
+    gridWidthInput.value = gridWidth;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-up-left').addEventListener('click', () => {
+    if (gridWidth > 1) gridWidth--;
+    gridHeight++;
+    gridWidthInput.value = gridWidth;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-up-right').addEventListener('click', () => {
+    gridWidth++;
+    gridHeight++;
+    gridWidthInput.value = gridWidth;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-down-left').addEventListener('click', () => {
+    if (gridWidth > 1) gridWidth--;
+    if (gridHeight > 1) gridHeight--;
+    gridWidthInput.value = gridWidth;
+    gridHeightInput.value = gridHeight;
+    initCanvas();
+});
+
+document.getElementById('gridBtn-down-right').addEventListener('click', () => {
+    gridWidth++;
+    if (gridHeight > 1) gridHeight--;
+    gridWidthInput.value = gridWidth;
+    gridHeightInput.value = gridHeight;
     initCanvas();
 });
 
