@@ -26,6 +26,11 @@ let gridSize = 20;
 let history = [];
 let historyStep = -1;
 
+// Создаем отдельный канвас для сетки
+const gridCanvas = document.createElement('canvas');
+const gridCtx = gridCanvas.getContext('2d');
+let gridImageData = null;
+
 // Инициализация канваса
 function initCanvas() {
     const pixelSize = 20; // размер пикселя в пикселях экрана
@@ -34,36 +39,46 @@ function initCanvas() {
     
     canvas.width = cols * pixelSize;
     canvas.height = rows * pixelSize;
+    gridCanvas.width = cols * pixelSize;
+    gridCanvas.height = rows * pixelSize;
     
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Рисуем бледную сетку
+    // Рисуем бледную сетку на отдельном слое
     drawGrid(pixelSize);
+    gridImageData = gridCtx.getImageData(0, 0, gridCanvas.width, gridCanvas.height);
     
     saveHistory();
     updateCanvasInfo();
 }
 
-// Рисование бледной сетки
+// Рисование бледной сетки на отдельном канвасе
 function drawGrid(pixelSize) {
-    ctx.strokeStyle = '#e0e0e0';
-    ctx.lineWidth = 0.5;
+    gridCtx.strokeStyle = '#e0e0e0';
+    gridCtx.lineWidth = 0.5;
     
     // Вертикальные линии
     for (let col = 1; col < gridSize; col++) {
-        ctx.beginPath();
-        ctx.moveTo(col * pixelSize, 0);
-        ctx.lineTo(col * pixelSize, canvas.height);
-        ctx.stroke();
+        gridCtx.beginPath();
+        gridCtx.moveTo(col * pixelSize, 0);
+        gridCtx.lineTo(col * pixelSize, gridCanvas.height);
+        gridCtx.stroke();
     }
     
     // Горизонтальные линии
     for (let row = 1; row < gridSize; row++) {
-        ctx.beginPath();
-        ctx.moveTo(0, row * pixelSize);
-        ctx.lineTo(canvas.width, row * pixelSize);
-        ctx.stroke();
+        gridCtx.beginPath();
+        gridCtx.moveTo(0, row * pixelSize);
+        gridCtx.lineTo(gridCanvas.width, row * pixelSize);
+        gridCtx.stroke();
+    }
+}
+
+// Отображение сетки поверх холста
+function displayGridOnTop() {
+    if (gridImageData) {
+        ctx.putImageData(gridImageData, 0, 0);
     }
 }
 
@@ -120,8 +135,7 @@ function redo() {
 // Восстановление из истории
 function restoreHistory() {
     ctx.putImageData(history[historyStep], 0, 0);
-    const pixelSize = canvas.width / gridSize;
-    drawGrid(pixelSize);
+    displayGridOnTop();
     updateUndoRedoButtons();
 }
 
@@ -297,6 +311,7 @@ canvas.addEventListener('mouseup', () => {
         saveHistory();
     }
     isDrawing = false;
+    displayGridOnTop();
 });
 
 canvas.addEventListener('mouseleave', () => {
@@ -304,7 +319,20 @@ canvas.addEventListener('mouseleave', () => {
         saveHistory();
     }
     isDrawing = false;
+    displayGridOnTop();
 });
+
+canvas.addEventListener('mousemove', (e) => {
+    if (!isDrawing || isFill) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const { col, row, pixelSize } = getPixelCoords(x, y);
+    
+    drawBrush(col, row, pixelSize);
+    displayGridOnTop();
+})
 
 // Восстановление сетки после каждого действия
 function restoreHistoryWithGrid() {
