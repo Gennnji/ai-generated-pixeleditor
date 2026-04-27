@@ -114,6 +114,8 @@ header h1 {
 .canvas-wrapper {
     position: relative;
     display: inline-block;
+    width: fit-content;
+    height: fit-content;
 }
 
 #gridCanvas {
@@ -126,21 +128,19 @@ header h1 {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     z-index: 1;
+    display: block;
 }
 
 #canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     border: 2px solid #ddd;
     cursor: crosshair;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    max-height: 100%;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    background: transparent;
+    background: white;
     z-index: 10;
+    display: block;
 }
 
 .info {
