@@ -316,18 +316,54 @@ body {
         width: 200px;
         right: 10px;
     }
+
+    .tools-container {
+        right: 230px;
+    }
+}
+
+.tools-container {
+    position: fixed;
+    right: 280px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 140px;
+    background: rgba(248, 249, 250, 0.3);
+    border: 1px solid rgba(233, 236, 239, 0.4);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    z-index: 400;
+    backdrop-filter: blur(4px);
+}
+
+.tools-container .tools-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.tools-container .tools-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
 }
 
 .floating-eraser-btn {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
+    position: relative;
     width: 100px;
     height: 140px;
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 600;
+    z-index: 10;
     transition: all 0.3s ease;
     padding: 0;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
@@ -341,7 +377,7 @@ body {
 }
 
 .floating-eraser-btn:hover {
-    transform: scale(1.1) translateY(-5px);
+    transform: scale(1.1);
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
 }
 
@@ -378,10 +414,14 @@ body {
         font-size: 16px;
     }
 
+    .tools-container {
+        right: 200px;
+        width: 120px;
+        padding: 12px;
+    }
+
     .floating-eraser-btn {
         width: 80px;
         height: 112px;
-        left: 10px;
-        bottom: 10px;
     }
 }

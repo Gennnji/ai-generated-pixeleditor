@@ -11,9 +11,14 @@
         <h1>PixelEditor</h1>
     </header>
 
-    <button class="floating-eraser-btn" id="floatingEraserBtn" title="Ластик">
-        <img src="eraser.svg" alt="Ластик">
-    </button>
+    <div class="tools-container">
+        <div class="tools-section">
+            <h3>Специальные</h3>
+            <button class="floating-eraser-btn" id="floatingEraserBtn" title="Ластик">
+                <img src="eraser.svg" alt="Ластик">
+            </button>
+        </div>
+    </div>
 
     <div class="editor-container">
         <div class="canvas-wrapper">
@@ -86,6 +91,7 @@
                             <button id="copyPNG" class="export-btn" title="Копировать в буфер">📋</button>
                         </div>
                     </div>
+                </div>
     </div>
 
     <script src="script.js"></script>
