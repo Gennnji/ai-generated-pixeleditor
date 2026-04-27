@@ -39,8 +39,8 @@ function initCanvas() {
     gridCanvas.width = cols * pixelSize;
     gridCanvas.height = rows * pixelSize;
     
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Очищаем canvas без белого фона (прозрачный)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     drawGridOnGridCanvas();
     saveHistory();
@@ -132,12 +132,26 @@ function drawPixel(col, row, pixelSize, color) {
 
 // Рисование кисти
 function drawBrush(col, row, pixelSize) {
-    const color = isEraser ? '#ffffff' : currentColor;
     const brushRadius = Math.floor(currentBrushSize / 2);
     
-    for (let dx = -brushRadius; dx <= brushRadius; dx++) {
-        for (let dy = -brushRadius; dy <= brushRadius; dy++) {
-            drawPixel(col + dx, row + dy, pixelSize, color);
+    if (isEraser) {
+        // Стирание - используем clearRect для прозрачности
+        for (let dx = -brushRadius; dx <= brushRadius; dx++) {
+            for (let dy = -brushRadius; dy <= brushRadius; dy++) {
+                const c = col + dx;
+                const r = row + dy;
+                if (c >= 0 && c < gridSize && r >= 0 && r < gridSize) {
+                    ctx.clearRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
+                }
+            }
+        }
+    } else {
+        // Рисование цветом
+        const color = currentColor;
+        for (let dx = -brushRadius; dx <= brushRadius; dx++) {
+            for (let dy = -brushRadius; dy <= brushRadius; dy++) {
+                drawPixel(col + dx, row + dy, pixelSize, color);
+            }
         }
     }
 }
@@ -317,8 +331,7 @@ fillBtn.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
     if (confirm('Вы уверены? Это очистит весь холст.')) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         saveHistory();
     }
 });
