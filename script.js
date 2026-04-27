@@ -480,5 +480,15 @@ document.getElementById('gridBtn-down-right').addEventListener('click', () => {
     expandGridWithOffset(0, 0, 1, 1);
 });
 
+// Обработчик для плавающей кнопки ластика
+const floatingEraserBtn = document.getElementById('floatingEraserBtn');
+floatingEraserBtn.addEventListener('click', () => {
+    isEraser = !isEraser;
+    isFill = false;
+    fillBtn.classList.remove('active');
+    floatingEraserBtn.classList.toggle('active');
+    eraserBtn.classList.toggle('active');
+});
+
 // Инициализация
 initCanvas();
